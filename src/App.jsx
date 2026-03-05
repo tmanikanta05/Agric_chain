@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Farmer from "./pages/Farmer";
 import Collector from "./pages/Collector";
@@ -7,7 +8,6 @@ import Broker from "./pages/Broker";
 import Manufacturer from "./pages/Manufacturer";
 import Lab from "./pages/Lab";
 import "./styles/global.css";
-// NOTE: Do NOT import App.css — all styles are in global.css
 
 export default function App() {
   return (
@@ -21,6 +21,7 @@ export default function App() {
         <Route path="/manufacturer" element={<Manufacturer />} />
         <Route path="/lab"          element={<Lab />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
