@@ -8,6 +8,16 @@ const PROGRAM_ID = new PublicKey("4hMPxgjyhscXa7iFYVd68DpXHQFsfXbcxBdEog1cfACv")
 const DISTRICTS = [{v:"1",l:"Adilabad"},{v:"2",l:"Bhupalpally"},{v:"3",l:"Suryapet"},{v:"4",l:"Rangareddy"},{v:"5",l:"Warangal"}];
 const CROPS     = [{v:"1",l:"Paddy"},{v:"2",l:"Wheat"},{v:"3",l:"Cotton"},{v:"4",l:"Vegetables"},{v:"5",l:"Fruits"}];
 
+/* ── SHA-256 hash via Web Crypto API (salted) ── */
+async function hashAadhaar(aadhaar) {
+  const salt    = "agrichain_2026_devnet";
+  const encoder = new TextEncoder();
+  const data     = encoder.encode(salt + aadhaar.trim());
+  const hashBuf  = await crypto.subtle.digest("SHA-256", data);
+  const hashArr  = Array.from(new Uint8Array(hashBuf));
+  return hashArr.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 export default function Farmer() {
   const { publicKey, connected } = useWallet();
   const ctx = useAnchor();
@@ -34,20 +44,21 @@ export default function Farmer() {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!connected || !publicKey)  { alert("Connect Phantom wallet first"); return; }
-    if (!program)                  { alert("Program not initialized — reload page"); return; }
-    if (!form.geoLocation)         { alert("Capture GPS location first"); return; }
-    if (form.aadhaar.length < 4)   { alert("Aadhaar must be at least 4 digits"); return; }
-    if (form.mobile.length !== 10) { alert("Mobile must be 10 digits"); return; }
+    if (!connected || !publicKey)       { alert("Connect Phantom wallet first"); return; }
+    if (!program)                        { alert("Program not initialized — reload page"); return; }
+    if (!form.geoLocation)              { alert("Capture GPS location first"); return; }
+    if (!/^\d{12}$/.test(form.aadhaar)) { alert("Aadhaar must be exactly 12 digits"); return; }
+    if (form.mobile.length !== 10)      { alert("Mobile must be 10 digits"); return; }
 
-    setLoading(true); setTxSig(""); setStatusMsg("Waiting for Phantom approval...");
+    setLoading(true); setTxSig(""); setStatusMsg("Hashing Aadhaar...");
     try {
+      const aadhaarHash = await hashAadhaar(form.aadhaar);
       const [farmerPda] = PublicKey.findProgramAddressSync([Buffer.from("farmer"), publicKey.toBuffer()], PROGRAM_ID);
       const [cropPda]   = PublicKey.findProgramAddressSync([Buffer.from("crop"),   publicKey.toBuffer()], PROGRAM_ID);
       const timestamp   = Math.floor(new Date(form.collectionDate).getTime() / 1000);
       setStatusMsg("Sending transaction to Devnet...");
       const tx = await program.methods
-        .registerFarmer(form.name, form.mobile, form.aadhaar, form.geoLocation,
+        .registerFarmer(form.name, form.mobile, aadhaarHash, form.geoLocation,
           Number(form.district), Number(form.cropType),
           new anchor.BN(Number(form.approxWeight)), new anchor.BN(timestamp))
         .accounts({ authority: publicKey, farmer: farmerPda, crop: cropPda, systemProgram: SystemProgram.programId })
@@ -103,8 +114,20 @@ export default function Farmer() {
               </div>
             </div>
             <div className="field">
-              <label>Aadhaar (last 4 digits min)</label>
-              <input type="text" placeholder="e.g. 1234" required onChange={f("aadhaar")} />
+              <label>Aadhaar Number (12 digits)</label>
+              <input
+                type="password"
+                placeholder="Enter 12-digit Aadhaar"
+                maxLength={12}
+                inputMode="numeric"
+                pattern="\d{12}"
+                autoComplete="off"
+                required
+                onChange={f("aadhaar")}
+              />
+              <div style={{fontSize:10,color:"rgba(240,247,235,0.3)",marginTop:5,fontWeight:300,letterSpacing:"0.2px"}}>
+                🔒 Salted SHA-256 hash stored on-chain — original number never leaves your browser
+              </div>
             </div>
 
             <div className="slabel">Location</div>
