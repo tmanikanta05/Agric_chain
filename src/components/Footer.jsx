@@ -27,16 +27,14 @@ export default function Footer() {
   return (
     <footer style={{
       width: "100%",
-      background: "rgba(4,10,2,0.88)",
-      backdropFilter: "blur(20px)",
-      borderTop: "1px solid rgba(109,206,63,0.12)",
+      background: "#ffffff",
+      borderTop: "2px solid rgba(109,206,63,0.4)",
+      boxShadow: "0 -2px 16px rgba(0,0,0,0.06)",
       paddingTop: 48,
       paddingBottom: 28,
       marginTop: "auto",
     }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
-
-
 
         {/* ── Team credits ── */}
         <div style={{
@@ -51,7 +49,7 @@ export default function Footer() {
             fontWeight: 700,
             letterSpacing: "2.5px",
             textTransform: "uppercase",
-            color: "#6dce3f",
+            color: "#2d8a10",
           }}>
             Developed By
           </div>
@@ -70,20 +68,19 @@ export default function Footer() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 7,
-                background: "rgba(109,206,63,0.06)",
-                border: "1px solid rgba(109,206,63,0.18)",
+                background: "rgba(109,206,63,0.08)",
+                border: "1px solid rgba(109,206,63,0.35)",
                 borderRadius: 999,
                 padding: "6px 18px",
                 fontSize: 12,
-                fontWeight: 400,
-                color: "rgba(240,247,235,0.7)",
+                fontWeight: 500,
+                color: "#1a4a0a",
                 letterSpacing: "0.3px",
               }}>
                 <span style={{
                   width: 5, height: 5,
                   borderRadius: "50%",
                   background: "#6dce3f",
-                  opacity: 0.7,
                   display: "inline-block",
                   flexShrink: 0,
                 }}/>
@@ -106,7 +103,7 @@ export default function Footer() {
             fontWeight: 700,
             letterSpacing: "2.5px",
             textTransform: "uppercase",
-            color: "#6dce3f",
+            color: "#2d8a10",
           }}>
             Guided By
           </div>
@@ -114,29 +111,28 @@ export default function Footer() {
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            background: "rgba(109,206,63,0.06)",
-            border: "1px solid rgba(109,206,63,0.18)",
+            background: "rgba(109,206,63,0.08)",
+            border: "1px solid rgba(109,206,63,0.35)",
             borderRadius: 999,
             padding: "7px 20px",
             fontSize: 12,
-            fontWeight: 400,
-            color: "rgba(240,247,235,0.75)",
+            fontWeight: 500,
+            color: "#1a4a0a",
             letterSpacing: "0.3px",
           }}>
             <span style={{
               width: 5, height: 5,
               borderRadius: "50%",
               background: "#6dce3f",
-              opacity: 0.7,
               display: "inline-block",
               flexShrink: 0,
             }}/>
             Mr. Phani Prasad
             <span style={{
               fontSize: 10,
-              fontWeight: 300,
-              color: "rgba(240,247,235,0.35)",
-              borderLeft: "1px solid rgba(255,255,255,0.1)",
+              fontWeight: 400,
+              color: "#5a7a50",
+              borderLeft: "1px solid rgba(109,206,63,0.3)",
               paddingLeft: 8,
               marginLeft: 2,
             }}>
@@ -145,10 +141,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Second divider ── */}
+        {/* ── Divider ── */}
         <div style={{
           height: 1,
-          background: "linear-gradient(to right, transparent, rgba(109,206,63,0.1), transparent)",
+          background: "linear-gradient(to right, transparent, rgba(109,206,63,0.35), transparent)",
           marginBottom: 20,
         }}/>
 
@@ -162,26 +158,26 @@ export default function Footer() {
         }}>
           <p style={{
             fontSize: 12,
-            fontWeight: 300,
-            color: "rgba(240,247,235,0.3)",
+            fontWeight: 400,
+            color: "#5a7a50",
             margin: 0,
           }}>
             © {year} AgriChain. Built on Solana Devnet. All rights reserved.
           </p>
 
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 11, fontWeight: 300, color: "rgba(240,247,235,0.25)" }}>
+            <span style={{ fontSize: 11, fontWeight: 400, color: "#5a7a50" }}>
               Powered by
             </span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#6dce3f", letterSpacing: "0.5px" }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#3da81c", letterSpacing: "0.5px" }}>
               ⚡ Solana
             </span>
-            <span style={{ fontSize: 11, color: "rgba(240,247,235,0.2)" }}>·</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(240,247,235,0.4)" }}>
+            <span style={{ fontSize: 11, color: "#aaa" }}>·</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "#2d6e1a" }}>
               ⚓ Anchor
             </span>
-            <span style={{ fontSize: 11, color: "rgba(240,247,235,0.2)" }}>·</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(240,247,235,0.4)" }}>
+            <span style={{ fontSize: 11, color: "#aaa" }}>·</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "#2d6e1a" }}>
               ⚛ React
             </span>
           </div>
