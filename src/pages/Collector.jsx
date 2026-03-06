@@ -6,8 +6,8 @@ import { useAnchor } from "../context/AnchorContext";
 
 const PROGRAM_ID = new PublicKey("4hMPxgjyhscXa7iFYVd68DpXHQFsfXbcxBdEog1cfACv");
 const BROKERS = [
-  { label: "Broker 1 - Raju Traders",    pubkey: "AHZqSqvdyXNzBfbz514UXeQK6JXntqSS5agpNTnWDALB" },
-  { label: "Broker 2 - Krishna Exports", pubkey: "AkX9x6BhDDFaoPnir8kyz7gcn4FS3eSL9XbdyaxU32wF" },
+  { label: "Broker 1 - Raju Traders",    pubkey: "HogGTnGkpkeDMKHNwwGJ6jSPig8fy2dpCJpQrihHchRp" },
+  { label: "Broker 2 - Krishna Exports", pubkey: "5Qbkn6cYg4GxNFRnuhroFhsSVMyG5Sb3E6NTtCLFLqMW" },
 ];
 const DISTRICT_MAP = {1:"Adilabad",2:"Bhupalpally",3:"Suryapet",4:"Rangareddy",5:"Warangal"};
 const CROP_MAP     = {1:"🌾 Paddy",2:"🌿 Wheat",3:"☁️ Cotton",4:"🥦 Vegetables",5:"🍎 Fruits"};
