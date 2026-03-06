@@ -7,8 +7,8 @@ import { useAnchor } from "../context/AnchorContext";
 const PROGRAM_ID = new PublicKey("4hMPxgjyhscXa7iFYVd68DpXHQFsfXbcxBdEog1cfACv");
 
 const MANUFACTURERS = [
-  { label: "Manufacturer 1 - AgroPro Mills",       pubkey: "5Qbkn6cYg4GxNFRnuhroFhsSVMyG5Sb3E6NTtCLFLqMW" },
-  { label: "Manufacturer 2 - GreenPack Industries", pubkey: "DLgx9THCwkwjYSisSWkLUfJG8UdWS1NrsiKhk6yNuemG" },
+  { label: "Manufacturer 1 - AgroPro Mills",       pubkey: "AkX9x6BhDDFaoPnir8kyz7gcn4FS3eSL9XbdyaxU32wF" },
+  { label: "Manufacturer 2 - GreenPack Industries", pubkey: "8busLmxoBGYP4sG2xdRMhnCc8PCLmgP7TwxNSC9cH4BP" },
 ];
 
 const DISTRICT_MAP = {1:"Adilabad",2:"Bhupalpally",3:"Suryapet",4:"Rangareddy",5:"Warangal"};
@@ -35,21 +35,35 @@ export default function Broker() {
     if (!program || !publicKey) return;
     setLoading(true); setError("");
     try {
-      const raw = await connection.getProgramAccounts(PROGRAM_ID, {
-        commitment:"confirmed", filters:[{memcmp:{offset:0,bytes:"bLrwCTwwMB2"}}],
-      });
-      const allCrops = raw.map(({pubkey,account}) => ({
-        publicKey:pubkey, account:program.coder.accounts.decode("crop",account.data),
-      }));
-      const rawF = await connection.getProgramAccounts(PROGRAM_ID, {
-        commitment:"confirmed", filters:[{memcmp:{offset:0,bytes:"jXX2LSteZVk"}}],
-      });
+      /* Fetch ALL program accounts — decode each safely, no fragile discriminator filters */
+      const raw = await connection.getProgramAccounts(PROGRAM_ID, { commitment: "confirmed" });
+
+      const allCrops = [];
       const fMap = {};
-      rawF.forEach(({pubkey,account}) => { fMap[pubkey.toString()] = program.coder.accounts.decode("farmer",account.data); });
-      setCrops(allCrops.filter(({account}) => account.broker?.toString() === publicKey.toString()));
+
+      for (const { pubkey, account } of raw) {
+        try {
+          const decoded = program.coder.accounts.decode("crop", account.data);
+          allCrops.push({ publicKey: pubkey, account: decoded });
+          continue;
+        } catch (_) {}
+        try {
+          const decoded = program.coder.accounts.decode("farmer", account.data);
+          fMap[pubkey.toString()] = decoded;
+        } catch (_) {}
+      }
+
+      /* Only show crops assigned to this broker's wallet */
+      setCrops(allCrops.filter(({ account }) =>
+        account.broker?.toString() === publicKey.toString()
+      ));
       setFarmers(fMap);
-    } catch(err) { console.error(err); setError("Failed to fetch from blockchain."); }
-    finally { setLoading(false); }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch from blockchain: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [program, publicKey]);
 
   useEffect(() => { if (connected && program) fetchAll(); }, [connected, program]);
