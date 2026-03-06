@@ -18,7 +18,19 @@ export default function Navbar() {
             filter: "drop-shadow(0 0 6px rgba(109,206,63,0.45))",
           }}
         />
-        <span>AgriChain</span>
+        <span style={{
+          fontFamily: "'Merriweather', serif",
+          fontWeight: 900,
+          fontStyle: "normal",
+          textTransform: "uppercase",
+          letterSpacing: "3px",
+          fontSize: "15px",
+          background: "linear-gradient(135deg, #2d8a10 0%, #6dce3f 60%, #9ef56a 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          filter: "drop-shadow(0 0 8px rgba(109,206,63,0.3))",
+        }}>AGRICHAIN</span>
       </NavLink>
 
       {/* ── Nav links ── */}
