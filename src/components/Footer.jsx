@@ -93,6 +93,58 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ── Guide ── */}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 24,
+        }}>
+          <div style={{
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: "2.5px",
+            textTransform: "uppercase",
+            color: "#6dce3f",
+          }}>
+            Guided By
+          </div>
+          <div style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            background: "rgba(109,206,63,0.06)",
+            border: "1px solid rgba(109,206,63,0.18)",
+            borderRadius: 999,
+            padding: "7px 20px",
+            fontSize: 12,
+            fontWeight: 400,
+            color: "rgba(240,247,235,0.75)",
+            letterSpacing: "0.3px",
+          }}>
+            <span style={{
+              width: 5, height: 5,
+              borderRadius: "50%",
+              background: "#6dce3f",
+              opacity: 0.7,
+              display: "inline-block",
+              flexShrink: 0,
+            }}/>
+            Mr. Phani Prasad
+            <span style={{
+              fontSize: 10,
+              fontWeight: 300,
+              color: "rgba(240,247,235,0.35)",
+              borderLeft: "1px solid rgba(255,255,255,0.1)",
+              paddingLeft: 8,
+              marginLeft: 2,
+            }}>
+              Assistant Professor
+            </span>
+          </div>
+        </div>
+
         {/* ── Second divider ── */}
         <div style={{
           height: 1,
