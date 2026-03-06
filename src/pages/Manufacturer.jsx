@@ -7,8 +7,8 @@ import { useAnchor } from "../context/AnchorContext";
 const PROGRAM_ID = new PublicKey("4hMPxgjyhscXa7iFYVd68DpXHQFsfXbcxBdEog1cfACv");
 
 const LABS = [
-  { label: "Lab 1 - AgriTest Certified", pubkey: "HogGTnGkpkeDMKHNwwGJ6jSPig8fy2dpCJpQrihHchRp" },
-  { label: "Lab 2 - GreenQuality Labs",  pubkey: "8busLmxoBGYP4sG2xdRMhnCc8PCLmgP7TwxNSC9cH4BP" },
+  { label: "Lab 1 - AgriTest Certified", pubkey: "DLgx9THCwkwjYSisSWkLUfJG8UdWS1NrsiKhk6yNuemG" },
+  { label: "Lab 2 - GreenQuality Labs",  pubkey: "2Xqq5TNNi9bhwpEC2xRS78z9YD3C5UUAAhndSLrYmcLY" },
 ];
 
 const DISTRICT_MAP   = {1:"Adilabad",2:"Bhupalpally",3:"Suryapet",4:"Rangareddy",5:"Warangal"};
